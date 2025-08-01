@@ -18,7 +18,6 @@ public:
 	void modify();
 	void dep(int);
 	void draw(int);
-	void report() const;
 	int retacno() const;
 	int retdeposit() const;
 	char rettype() const;
@@ -119,11 +118,10 @@ int main()
 		cout << "\n\t\t\t\t2. DEPOSIT AMOUNT";
 		cout << "\n\t\t\t\t3. WITHDRAW AMOUNT";
 		cout << "\n\t\t\t\t4. BALANCE ENQUIRY";
-		cout << "\n\t\t\t\t5. ALL ACCOUNT HOLDER LIST";
-		cout << "\n\t\t\t\t6. CLOSE AN ACCOUNT";
-		cout << "\n\t\t\t\t7. MODIFY AN ACCOUNT";
-		cout << "\n\t\t\t\t8. EXIT";
-		cout << "\n\n\t\t\t\tSelect Your Option (1-8): ";
+		cout << "\n\t\t\t\t5. CLOSE AN ACCOUNT";
+		cout << "\n\t\t\t\t6. MODIFY AN ACCOUNT";
+		cout << "\n\t\t\t\t7. EXIT";
+		cout << "\n\n\t\t\t\tSelect Your Option (1-7): ";
 		cin >> ch;
 
 		switch (ch)
@@ -147,19 +145,16 @@ int main()
 			display_sp(num);
 			break;
 		case '5':
-			display_all();
-			break;
-		case '6':
 			system("CLS");
 			cout << "\n\n\t\t\tEnter The account No. : "; cin >> num;
 			delete_account(num);
 			break;
-		case '7':
+		case '6':
 			system("CLS");
 			cout << "\n\n\t\t\tEnter The account No. : "; cin >> num;
 			modify_account(num);
 			break;
-		case '8':
+		case '7':
 			system("CLS");
 			cout << "\n\n\t\t\tThank You!!!!";
 			break;
@@ -167,7 +162,7 @@ int main()
 		}
 		cin.ignore();
 		cin.get();
-	} while (ch != '8');
+	} while (ch != '7');
 	return 0;
 }
 void write_account()
@@ -261,29 +256,6 @@ void delete_account(int n)
 }
 
 
-void display_all()
-{
-	system("CLS");
-	account ac;
-	ifstream inFile;
-	inFile.open("account.dat", ios::binary);
-	if (!inFile)
-	{
-		cout << "File could not be open !! Press any Key...";
-		return;
-	}
-	cout << "\n\n\t\tACCOUNT HOLDER LIST\n\n";
-	cout << "====================================================\n";
-	cout << "A/c no.      NAME           Type  Balance\n";
-	cout << "====================================================\n";
-	while (inFile.read(reinterpret_cast<char*> (&ac), sizeof(account)))
-	{
-		ac.report();
-	}
-	inFile.close();
-}
-
-
 void deposit_withdraw(int n, int option)
 {
 	int amt;
@@ -331,3 +303,4 @@ void deposit_withdraw(int n, int option)
 	if (found == false)
 		cout << "\n\n\t\t\tRecord Not Found ";
 }
+
